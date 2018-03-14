@@ -56,8 +56,11 @@ void main(int argscount,char** arguments){
 		if(strcmp(arguments[1],"--help")==0){
 			helpMessage();
 			return;
-		}else if(strcmp(arguments[1],"--version")){
+		}else if(strcmp(arguments[1],"--version")==0){
 			printf("Version: %i\n",VERSION);
+			return;
+		}else{
+			helpMessage();
 			return;
 		}
 	}else if(argscount==3){
