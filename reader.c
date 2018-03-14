@@ -2,13 +2,18 @@
 #include <stdlib.h>
 
 #define CDROMSECTORSIZE 2048
+#define VERSION 1
+
 FILE *bestand;
 unsigned char buffer[CDROMSECTORSIZE];
 
 void helpMessage(){
-	printf("reader cdromimage.iso\n");
-	printf("--help    see this message\n");
-	printf("--version get programversion\n");
+	printf("reader option cdromimage.iso\n");
+	printf("--help             see this message\n");
+	printf("--version          get programversion\n");
+	printf("--list    ISO      list contents of ISO file\n");
+	printf("--display ISO PATH display contents of file\n");
+	printf("--tree    ISO      prints tree of ISO file\n");
 }
 
 void seek(long count){
@@ -46,15 +51,17 @@ unsigned long getPrimairyVolumeDescriptor(){
 }
 
 void main(int argscount,char** arguments){
-	if(argscount>1){
+	if(argscount==2){
 		printf("Argscount is oké: opening '%s'\n",arguments[1]);
 		if(strcmp(arguments[1],"--help")==0){
 			helpMessage();
 			return;
 		}else if(strcmp(arguments[1],"--version")){
+			printf("Version: %i\n",VERSION);
 			return;
 		}
-		bestand = fopen(arguments[1],"rb");
+	}else if(argscount==3){
+		bestand = fopen(arguments[2],"rb");
 		if(bestand){
 			seek(0);
 			printf("BOOTABLE: %s\n",getB(510)==0x55&&getB(511)==0xAA?"YES":"NO");
@@ -111,7 +118,7 @@ void main(int argscount,char** arguments){
 			end:
 			fclose(bestand);
 		}else{
-			printf("ERROR: unable to open %s\n",arguments[1]);
+			printf("ERROR: unable to open %s\n",arguments[2]);
 		}
 	}else{
 		helpMessage();
