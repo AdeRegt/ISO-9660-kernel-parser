@@ -46,8 +46,14 @@ unsigned long getPrimairyVolumeDescriptor(){
 }
 
 void main(int argscount,char** arguments){
-	if(argscount==2){
+	if(argscount>1){
 		printf("Argscount is oké: opening '%s'\n",arguments[1]);
+		if(strcmp(arguments[1],"--help")==0){
+			helpMessage();
+			return;
+		}else if(strcmp(arguments[1],"--version")){
+			return;
+		}
 		bestand = fopen(arguments[1],"rb");
 		if(bestand){
 			seek(0);

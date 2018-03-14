@@ -46,8 +46,14 @@ unsigned long getPrimairyVolumeDescriptor(){
 }
 
 void main(int argscount,char** arguments){
-	if(argscount==2){
+	if(argscount>1){
 		printf("Argscount is oké: opening '%s'\n",arguments[1]);
+		if(strcmp(arguments[1],"--help")==0){
+			helpMessage();
+			return;
+		}else if(strcmp(arguments[1],"--version")){
+		
+		}
 		bestand = fopen(arguments[1],"rb");
 		if(bestand){
 			seek(0);
@@ -97,7 +103,7 @@ void main(int argscount,char** arguments){
 					for(q = 0 ; q < textsize ; q++){
 						printf("%c",getB(d+33+q));
 					}
-					printf("\t%s ::INTOFREC=%i EXT=%i LBA=%x SIZE=%x TXTSZE=%i \n",(textsize>5)?"":"\t",lengthofrecord,extended,lbaloc,size,textsize);
+					printf("\t%s ::INTOFREC=%i EXT=%i LBA=%x SIZE=%x TXTSZE=%i \n",(textsize>10)?"":"\t",lengthofrecord,extended,lbaloc,size,textsize);
 					d += lengthofrecord;
 				}
 				seek(ltableloc);
