@@ -108,12 +108,13 @@ void main(int argscount,char** arguments){
 					unsigned int lbaloc = getL(d+2);
 					unsigned int size = getL(d+10);
 					unsigned char textsize = getB(d+32);
+					unsigned char flags = getB(d+25);
 					printf("\t => ");
 					unsigned char q = 0;
 					for(q = 0 ; q < textsize ; q++){
 						printf("%c",getB(d+33+q));
 					}
-					printf("\t%s ::INTOFREC=%i EXT=%i LBA=%x SIZE=%x TXTSZE=%i \n",(textsize>10)?"":"\t",lengthofrecord,extended,lbaloc,size,textsize);
+					printf("\t%s :: %s INTOFREC=%i EXT=%i LBA=%x SIZE=%x TXTSZE=%i \n",(textsize>10)?"":"\t",(flags & 2)?"DIR":"FIL",lengthofrecord,extended,lbaloc,size,textsize);
 					d += lengthofrecord;
 				}
 				seek(ltableloc);

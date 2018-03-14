@@ -59,6 +59,9 @@ void main(int argscount,char** arguments){
 		}else if(strcmp(arguments[1],"--version")==0){
 			printf("Version: %i\n",VERSION);
 			return;
+		}else{
+			helpMessage();
+			return;
 		}
 	}else if(argscount==3){
 		bestand = fopen(arguments[2],"rb");
