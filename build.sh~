@@ -1,0 +1,3 @@
+gcc reader.c -o reader
+./reader myos.iso
+
